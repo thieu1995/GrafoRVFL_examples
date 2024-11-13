@@ -173,7 +173,9 @@ def get_california_housing():
 # # Check the datasets
 # for name, (X_train, X_test, y_train, y_test) in datasets.items():
 #     print(f"{name.capitalize()} Dataset:")
+#     print(f"  Samples: {len(X_train) + len(X_test)}")
 #     print(f"  Training data shape: {X_train.shape}")
 #     print(f"  Test data shape: {X_test.shape}")
 #     print(f"  Training target shape: {y_train.shape}")
-#     print(f"  Test target shape: {y_test.shape}\n")
+#     print(f"  Test target shape: {y_test.shape}")
+#     print(f"  Unique y values: {len(np.unique(y_train))}\n")
