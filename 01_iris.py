@@ -65,7 +65,7 @@ def run_trial(model, seed, data, param_bounds):
 
     # Initialize model
     tuner = GfoRvflTuner(problem_type="classification", bounds=param_bounds, cv=4, scoring="F1S",
-                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=True, seed=42)
+                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=42)
     # Train the model
     tuner.fit(X=X_train, y=y_train)
 
