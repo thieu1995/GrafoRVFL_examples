@@ -30,7 +30,7 @@ DATA_NAME = "california"
 EPOCH = 100
 POP_SIZE = 20
 LIST_SEEDS = [10, 15, 21, 24, 27, 29, 30, 35, 40, 42]
-LIST_METRICS = ["MAPE", "NNSE", "WI", "R", "R2", "KGE"]
+LIST_METRICS = ["MAE", "RMSE", "NNSE", "WI", "R", "KGE"]
 PATH_SAVE = "history"
 N_WORKERS = 10
 
