@@ -48,20 +48,20 @@ PARAM_BOUNDS = [
 ]
 
 LIST_MODELS = [
-    {"name": "GA-RVFL", "class": "BaseGA", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "JADE-RVFL", "class": "JADE", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "L-SHADE-RVFL", "class": "L_SHADE", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "PSO-RVFL", "class": "OriginalPSO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "HPSO-TVAC-RVFL", "class": "HPSO_TVAC", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "P-PSO-RVFL", "class": "P_PSO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "RW-GWO-RVFL", "class": "RW_GWO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "AO-RVFL", "class": "OriginalAO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "ARO-RVFL", "class": "OriginalARO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "SMA-RVFL", "class": "OriginalSMA", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "AOA-RVFL", "class": "OriginalAOA", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "GBO-RVFL", "class": "OriginalGBO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "WOA-RVFL", "class": "OriginalWOA", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
-    {"name": "ASO-RVFL", "class": "OriginalASO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "BBO-RVFL", "class": "OriginalBBO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "SADE-RVFL", "class": "SADE", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "SHADE-RVFL", "class": "OriginalSHADE", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "LCO-RVFL", "class": "OriginalLCO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "INFO-RVFL", "class": "OriginalINFO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "QLE-SCA-RVFL", "class": "QleSCA", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "SHIO-SCA-RVFL", "class": "OriginalSHIO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "EFO-RVFL", "class": "OriginalEFO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "A-EO-RVFL", "class": "AdaptiveEO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "RIME-RVFL", "class": "OriginalRIME", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "LARO-RVFL", "class": "LARO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "HHO-RVFL", "class": "OriginalHHO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "AIW-PSO-RVFL", "class": "AIW_PSO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
+    {"name": "CL-PSO-RVFL", "class": "CL_PSO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
 ]
 
 
@@ -70,7 +70,7 @@ def run_trial(model, seed, data, param_bounds):
     X_train, X_test, y_train, y_test = data
 
     # Initialize model
-    tuner = GfoRvflTuner(problem_type="regression", bounds=param_bounds, cv=4, scoring="MSE",
+    tuner = GfoRvflTuner(problem_type="regression", bounds=param_bounds, cv=5, scoring="MSE",
                          optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=42)
     # Train the model
     tuner.fit(X=X_train, y=y_train)
