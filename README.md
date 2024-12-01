@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ### Run the scripts
 
 ```bash
-python 01_iris.py
+python 01_breast_cancer.py
 ....
 ```
 
@@ -82,18 +82,7 @@ LIST_MODELS = [
 ```
 
 
-
-
-
 ### Dataset information
-
-Iris Dataset:
-  Samples: 150
-  Training data shape: (120, 4)
-  Test data shape: (30, 4)
-  Training target shape: (120,)
-  Test target shape: (30,)
-  Unique y values: 3
 
 Breast_cancer Dataset:
   Samples: 569
@@ -101,30 +90,6 @@ Breast_cancer Dataset:
   Test data shape: (114, 30)
   Training target shape: (455,)
   Test target shape: (114,)
-  Unique y values: 2
-
-Digits Dataset:
-  Samples: 1797
-  Training data shape: (1437, 64)
-  Test data shape: (360, 64)
-  Training target shape: (1437,)
-  Test target shape: (360,)
-  Unique y values: 10
-
-Wine Dataset:
-  Samples: 178
-  Training data shape: (142, 13)
-  Test data shape: (36, 13)
-  Training target shape: (142,)
-  Test target shape: (36,)
-  Unique y values: 3
-
-Phoneme Dataset:
-  Samples: 5404
-  Training data shape: (4323, 5)
-  Test data shape: (1081, 5)
-  Training target shape: (4323,)
-  Test target shape: (1081,)
   Unique y values: 2
 
 Waveform Dataset:
@@ -166,3 +131,11 @@ California Dataset:
   Training target shape: (16512,)
   Test target shape: (4128,)
   Unique y values: 3675
+
+Digits Dataset:
+  Samples: 1797
+  Training data shape: (1437, 64)
+  Test data shape: (360, 64)
+  Training target shape: (1437,)
+  Test target shape: (360,)
+  Unique y values: 10
