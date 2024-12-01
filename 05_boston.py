@@ -9,36 +9,41 @@ import pandas as pd
 from concurrent.futures import ProcessPoolExecutor
 from graforvfl import DataTransformer, GfoRvflTuner
 from mealpy import IntegerVar, StringVar, FloatVar
-from data_util import get_wine
+from data_util import get_boston_housing
+
 
 ## Load data object
-# 178 samples, 13 features, 3 classes
-X_train, X_test, y_train, y_test = get_wine()
+# 506 samples, 22 features
+X_train, X_test, y_train, y_test = get_boston_housing()
 
 ## Scaling dataset
-dt = DataTransformer(scaling_methods=("minmax",))
-X_train_scaled = dt.fit_transform(X_train)
-X_test_scaled = dt.transform(X_test)
+dt_X = DataTransformer(scaling_methods=("minmax", ))
+X_train_scaled = dt_X.fit_transform(X_train)
+X_test_scaled = dt_X.transform(X_test)
 
-data = (X_train_scaled, X_test_scaled, y_train, y_test)
-DATA_NAME = "wine"
-EPOCH = 50
+dt_y = DataTransformer(scaling_methods=("minmax", ))
+y_train_scaled = dt_y.fit_transform(y_train.reshape(-1, 1))
+y_test_scaled = dt_y.transform(y_test.reshape(-1, 1))
+
+data = (X_train_scaled, X_test_scaled, y_train_scaled, y_test_scaled)
+DATA_NAME = "boston"
+EPOCH = 100
 POP_SIZE = 20
 LIST_SEEDS = [10, 15, 21, 24, 27, 29, 30, 35, 40, 42]
-LIST_METRICS = ["AS", "PS", "RS", "F1S", "SS", "NPV"]
-PATH_SAVE = "history"
+LIST_METRICS = ["MAE", "RMSE", "NNSE", "WI", "R", "KGE"]
+PATH_SAVE = "history_latest"
 N_WORKERS = 10
 
 # Design the boundary (parameters)
 PARAM_BOUNDS = [
-    IntegerVar(lb=5, ub=100, name="size_hidden"),
+    IntegerVar(lb=5, ub=150, name="size_hidden"),
     StringVar(valid_sets=("none", "relu", "leaky_relu", "celu", "prelu", "gelu", "elu", "selu",
                           "rrelu", "tanh", "hard_tanh", "sigmoid", "hard_sigmoid", "silu",
                           "swish", "mish", "hard_shrink"), name="act_name"),
     StringVar(valid_sets=("orthogonal", "he_uniform", "he_normal", "glorot_uniform", "glorot_normal",
                           "lecun_uniform", "lecun_normal", "random_uniform", "random_normal"),
               name="weight_initializer"),
-    StringVar(valid_sets=("MPI", "L2"), name="trainer"),
+    StringVar(valid_sets=("MPI", "L2",), name="trainer"),
     FloatVar(lb=0.01, ub=50., name="alpha")
 ]
 
@@ -64,8 +69,8 @@ def run_trial(model, seed, data, param_bounds):
     X_train, X_test, y_train, y_test = data
 
     # Initialize model
-    tuner = GfoRvflTuner(problem_type="classification", bounds=param_bounds, cv=5, scoring="F1S",
-                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=42)
+    tuner = GfoRvflTuner(problem_type="regression", bounds=param_bounds, cv=5, scoring="MSE",
+                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=seed)
     # Train the model
     tuner.fit(X=X_train, y=y_train)
 

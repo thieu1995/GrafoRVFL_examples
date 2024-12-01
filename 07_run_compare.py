@@ -26,7 +26,7 @@ data = (X_train_scaled, X_test_scaled, y_train, y_test)
 EPOCH = 50
 POP_SIZE = 20
 LIST_METRICS = ["AS", "PS", "RS", "F1S", "SS", "NPV"]
-PATH_SAVE = "history"
+PATH_SAVE = "history_latest"
 
 
 def graforvfl_exp(model):

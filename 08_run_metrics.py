@@ -18,13 +18,9 @@ def get_metrics(data_name, path_read, path_save):
     result_df.to_csv(f"{path_save}/{data_name}/df_metrics_summary.csv")
 
 
-path = "history"
+path = "history_latest"
 
-get_metrics(data_name="iris", path_read=f"{path}/iris", path_save=path)
 get_metrics(data_name="breast_cancer", path_read=f"{path}/breast_cancer", path_save=path)
-get_metrics(data_name="digits", path_read=f"{path}/digits", path_save=path)
-get_metrics(data_name="wine", path_read=f"{path}/wine", path_save=path)
-get_metrics(data_name="phoneme", path_read=f"{path}/phoneme", path_save=path)
 get_metrics(data_name="waveform", path_read=f"{path}/waveform", path_save=path)
 get_metrics(data_name="magic_telescope", path_read=f"{path}/magic_telescope", path_save=path)
 get_metrics(data_name="diabetes", path_read=f"{path}/diabetes", path_save=path)

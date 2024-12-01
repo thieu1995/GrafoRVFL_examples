@@ -9,24 +9,25 @@ import pandas as pd
 from concurrent.futures import ProcessPoolExecutor
 from graforvfl import DataTransformer, GfoRvflTuner
 from mealpy import IntegerVar, StringVar, FloatVar
-from data_util import get_digits
+from data_util import get_magic_telescope
+
 
 ## Load data object
-# 1797 samples, 64 features, 10 classes
-X_train, X_test, y_train, y_test = get_digits()
+# 13376 samples, 10 features, 2 classes
+X_train, X_test, y_train, y_test = get_magic_telescope()
 
 ## Scaling dataset
-dt = DataTransformer(scaling_methods=("minmax",))
+dt = DataTransformer(scaling_methods=("minmax", ))
 X_train_scaled = dt.fit_transform(X_train)
 X_test_scaled = dt.transform(X_test)
 
 data = (X_train_scaled, X_test_scaled, y_train, y_test)
-DATA_NAME = "digits"
-EPOCH = 50
+DATA_NAME = "magic_telescope"
+EPOCH = 100
 POP_SIZE = 20
 LIST_SEEDS = [10, 15, 21, 24, 27, 29, 30, 35, 40, 42]
 LIST_METRICS = ["AS", "PS", "RS", "F1S", "SS", "NPV"]
-PATH_SAVE = "history"
+PATH_SAVE = "history_latest"
 N_WORKERS = 10
 
 # Design the boundary (parameters)
@@ -38,8 +39,8 @@ PARAM_BOUNDS = [
     StringVar(valid_sets=("orthogonal", "he_uniform", "he_normal", "glorot_uniform", "glorot_normal",
                           "lecun_uniform", "lecun_normal", "random_uniform", "random_normal"),
               name="weight_initializer"),
-    StringVar(valid_sets=("MPI", "L2"), name="trainer"),
-    FloatVar(lb=0.01, ub=100., name="alpha")
+    StringVar(valid_sets=("MPI", "L2",), name="trainer"),
+    FloatVar(lb=0.01, ub=50., name="alpha")
 ]
 
 LIST_MODELS = [
@@ -59,14 +60,13 @@ LIST_MODELS = [
     {"name": "CL-PSO-RVFL", "class": "CL_PSO", "paras": {"epoch": EPOCH, "pop_size": POP_SIZE}},
 ]
 
-
 # Function to train, test, and evaluate a model for a single seed
 def run_trial(model, seed, data, param_bounds):
     X_train, X_test, y_train, y_test = data
 
     # Initialize model
     tuner = GfoRvflTuner(problem_type="classification", bounds=param_bounds, cv=5, scoring="F1S",
-                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=42)
+                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=seed)
     # Train the model
     tuner.fit(X=X_train, y=y_train)
 

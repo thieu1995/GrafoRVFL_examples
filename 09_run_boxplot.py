@@ -33,16 +33,12 @@ def get_figure(data_name, metrics, path_read, path_save, exts=(".png", ), verbos
             plt.show()
 
 
-path = "history"
+path = "history_latest"
 # Iterate through each metric and create a box plot
 metric_reg = ["MAE", "RMSE", "NNSE", "WI", "R", "KGE"]
 metric_cls = ["AS", "PS", "RS", "F1S", "SS", "NPV"]
 
-get_figure(data_name="iris", metrics=metric_cls, path_read=f"{path}/iris", path_save=f"{path}/visual/boxplot")
 get_figure(data_name="breast-cancer", metrics=metric_cls, path_read=f"{path}/breast_cancer", path_save=f"{path}/visual/boxplot")
-get_figure(data_name="digits", metrics=metric_cls, path_read=f"{path}/digits", path_save=f"{path}/visual/boxplot")
-get_figure(data_name="wine", metrics=metric_cls, path_read=f"{path}/wine", path_save=f"{path}/visual/boxplot")
-get_figure(data_name="phoneme", metrics=metric_cls, path_read=f"{path}/phoneme", path_save=f"{path}/visual/boxplot")
 get_figure(data_name="waveform", metrics=metric_cls, path_read=f"{path}/waveform", path_save=f"{path}/visual/boxplot")
 get_figure(data_name="magic-telescope", metrics=metric_cls, path_read=f"{path}/magic_telescope", path_save=f"{path}/visual/boxplot")
 get_figure(data_name="diabetes", metrics=metric_reg, path_read=f"{path}/diabetes", path_save=f"{path}/visual/boxplot")

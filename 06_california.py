@@ -31,12 +31,12 @@ EPOCH = 100
 POP_SIZE = 20
 LIST_SEEDS = [10, 15, 21, 24, 27, 29, 30, 35, 40, 42]
 LIST_METRICS = ["MAE", "RMSE", "NNSE", "WI", "R", "KGE"]
-PATH_SAVE = "history"
+PATH_SAVE = "history_latest"
 N_WORKERS = 10
 
 # Design the boundary (parameters)
 PARAM_BOUNDS = [
-    IntegerVar(lb=5, ub=100, name="size_hidden"),
+    IntegerVar(lb=5, ub=150, name="size_hidden"),
     StringVar(valid_sets=("none", "relu", "leaky_relu", "celu", "prelu", "gelu", "elu", "selu",
                           "rrelu", "tanh", "hard_tanh", "sigmoid", "hard_sigmoid", "silu",
                           "swish", "mish", "hard_shrink"), name="act_name"),
@@ -44,7 +44,7 @@ PARAM_BOUNDS = [
                           "lecun_uniform", "lecun_normal", "random_uniform", "random_normal"),
               name="weight_initializer"),
     StringVar(valid_sets=("MPI", "L2",), name="trainer"),
-    FloatVar(lb=0.01, ub=10., name="alpha")
+    FloatVar(lb=0.01, ub=50., name="alpha")
 ]
 
 LIST_MODELS = [
@@ -70,7 +70,7 @@ def run_trial(model, seed, data, param_bounds):
 
     # Initialize model
     tuner = GfoRvflTuner(problem_type="regression", bounds=param_bounds, cv=5, scoring="MSE",
-                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=42)
+                         optimizer=model["class"], optimizer_paras=model["paras"], verbose=False, seed=seed)
     # Train the model
     tuner.fit(X=X_train, y=y_train)
 

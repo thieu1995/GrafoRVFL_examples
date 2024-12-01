@@ -38,13 +38,9 @@ def get_figure(data_name, path_read, path_save, exts=(".png", ), verbose=False):
         plt.show()
 
 
-path = "history"
+path = "history_latest"
 
-get_figure(data_name="iris", path_read=f"{path}/iris", path_save=f"{path}/visual/convergence")
 get_figure(data_name="breast-cancer", path_read=f"{path}/breast_cancer", path_save=f"{path}/visual/convergence")
-get_figure(data_name="digits", path_read=f"{path}/digits", path_save=f"{path}/visual/convergence")
-get_figure(data_name="wine", path_read=f"{path}/wine", path_save=f"{path}/visual/convergence")
-get_figure(data_name="phoneme", path_read=f"{path}/phoneme", path_save=f"{path}/visual/convergence")
 get_figure(data_name="waveform", path_read=f"{path}/waveform", path_save=f"{path}/visual/convergence")
 get_figure(data_name="magic-telescope", path_read=f"{path}/magic_telescope", path_save=f"{path}/visual/convergence")
 get_figure(data_name="diabetes", path_read=f"{path}/diabetes", path_save=f"{path}/visual/convergence")
