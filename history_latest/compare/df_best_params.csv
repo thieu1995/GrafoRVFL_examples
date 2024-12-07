@@ -1,0 +1,6 @@
+model_name,size_hidden,act_name,weight_initializer,trainer,alpha
+RIME-RVFL,149,relu,glorot_uniform,L2,12.238583196593488
+SHADE-RVFL,149,leaky_relu,glorot_uniform,L2,12.297930627731134
+INFO-RVFL,147,relu,glorot_normal,L2,2.8885410705166437
+GridSearchCV,41,none,orthogonal,L2,37.0
+RandomizedSearchCV,147,none,random_normal,L2,40.43397296442092
